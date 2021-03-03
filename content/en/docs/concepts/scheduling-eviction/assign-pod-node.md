@@ -271,6 +271,11 @@ If omitted or empty, it defaults to the namespace of the pod where the affinity/
 All `matchExpressions` associated with `requiredDuringSchedulingIgnoredDuringExecution` affinity and anti-affinity
 must be satisfied for the pod to be scheduled onto a node.
 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+Users can also select namespaces using `namespaceSelector`, which is a label query over the set of namespaces.
+The affinity term is applied to the union of the namespaces selected by `namespaceSelector` and the ones listed in the `namespaces` field.
+Note that an empty `namespaceSelector` ({}) matches all namespaces.
+
 #### More Practical Use-cases
 
 Interpod Affinity and AntiAffinity can be even more useful when they are used with higher
