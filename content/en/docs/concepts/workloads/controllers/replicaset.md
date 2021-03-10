@@ -316,10 +316,12 @@ ensures that a desired number of Pods with a matching label selector are availab
 Using the `controller.kubernetes.io/pod-deletion-cost`, users can set a preference regarding 
 which pods to remove first when downscaling a ReplicSet.
 
-The annotation should be set on the pod, the expected type is `int64`. It represents the cost of
+The annotation should be set on the pod, the expected type is `int32`. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
-cost are preferred to be deleted before pods with higher deletion cost. The implicit value for 
-this annotation for pods that don't set it is 0; negative values are permitted.
+cost are preferred to be deleted before pods with higher deletion cost. 
+
+The implicit value for this annotation for pods that don't set it is 0; negative values are permitted.
+Invalid values will be rejected by the kube-api-server.
 
 This feature is alpha and disabled by default. You can enable it by setting the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
