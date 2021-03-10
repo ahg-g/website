@@ -310,6 +310,26 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 
+### Pod Deletion Cost 
+{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+
+Using the `controller.kubernetes.io/pod-deletion-cost`, users can set a preference regarding 
+which pods to remove first when downscaling a ReplicSet.
+
+The annotation should be set on the pod, the expected type is `int64`. It represents the cost of
+deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
+cost are preferred to be deleted before pods with higher deletion cost. The implicit value for 
+this annotation for pods that don't set it is 0; negative values are permitted.
+
+This feature is alpha and disabled by default. You can enable it by setting the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDeletionCost` in both kube-apiserver and kube-controller-manager.
+
+#### Warnings:
+- This is honored on a best-effort basis, and so it does not offer any guarantees on pod deletion order.
+- Users should avoid updating the annotation frequently (e.g., updating it based on a metric value)
+  because doing so will generate a significant number of pod updates on the apiserver.
+
 ### ReplicaSet as a Horizontal Pod Autoscaler Target
 
 A ReplicaSet can also be a target for

@@ -137,6 +137,7 @@ different Kubernetes components.
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | |
 | `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
 | `NonPreemptingPriority` | `true` | Beta | 1.19 | |
+| `PodDeletionCost` | `false` | Alpha | 1.21 | |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
@@ -665,6 +666,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
+- `PodDeletionCost`: Enable the [Pod Deletion Cost](/docs/content/en/docs/concepts/workloads/controllers/replicaset/#pod-deletion-cost)
+   feature which allow users to influence Replicaset downscaling order.
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
